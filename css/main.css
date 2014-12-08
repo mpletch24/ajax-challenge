@@ -3,11 +3,19 @@
 body {
     font-family: 'Ubuntu', 'Helvetica Neue', 'Helvetica', sans-serif;
     font-weight: 400;
+    margin: 30px;
 }
 
 .product-picture {
-    float: left;
-    height: 130px;
-    margin-right: 10px;
+    height: 180px;
 }
 
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
