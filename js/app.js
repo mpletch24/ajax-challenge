@@ -1,5 +1,7 @@
 //Talking Back App
 
+"use strict";
+
 var baseUrl = 'https://api.parse.com/1/classes/comments';
 
 angular.module('TalkingBackApp', ['ui.bootstrap'])
@@ -39,14 +41,12 @@ angular.module('TalkingBackApp', ['ui.bootstrap'])
 
         //initialize new comment object 
         $scope.addComment = function() {
+            $scope.submitting = true;
             $http.post(baseUrl, $scope.newComment)
                 .success(function(responseData) {
                     $scope.newComment.objectId = responseData.objectId;
-                    //add that comment to our comment list
                     $scope.comments.push($scope.newComment);
-                    //change the score
                     $scope.updateScore($scope.newComment, 0);
-                    //reset comment to clear the form
                     $scope.newComment = {};
                 })
                 .error(function(err) {
@@ -54,7 +54,7 @@ angular.module('TalkingBackApp', ['ui.bootstrap'])
                     // notify user of error
                 })
                 .finally(function() {
-                    $scope.updating = false;
+                    $scope.submitting = false;
                 });
         };
 
@@ -68,7 +68,6 @@ angular.module('TalkingBackApp', ['ui.bootstrap'])
                     }
                 };
                 $scope.updating = true;
-                console.log(base);
                 $http.put(baseUrl + '/' + comment.objectId, postData)
                     .success(function(respData) {
                         comment.score = respData.score;
@@ -80,10 +79,10 @@ angular.module('TalkingBackApp', ['ui.bootstrap'])
         };
 
         //delete comment
-        $scope.deleteComment = function(givenComment) {
+        $scope.deleteComment = function(comment) {
             $http.delete(baseUrl + '/' + comment.objectId, comment)
                 .finally(function() {
-                    $scope.refreshComments();
+                    $scope.retrieveComments();
             });
         };
     });

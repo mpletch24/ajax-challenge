@@ -7,7 +7,7 @@ body {
 }
 
 .product-picture {
-    height: 180px;
+    height: 450px;
 }
 
 hr { 
@@ -19,3 +19,4 @@ hr {
     border-style: inset;
     border-width: 1px;
 }
+
